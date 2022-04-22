@@ -15,8 +15,15 @@ pipeline {
       }
     }
     stage("test") {
-      steps {        
+      steps { 
+        catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
+            error 'Something goes wrong'
+        }
         input("Do you want to deploy the website?")
+        post {
+          always { echo 'Executed on every build'}
+          unstable { echo 'Executed only if build is unstable (marked by catchError)'}
+        }
       }
     }    
    stage("deploy") {
