@@ -1,8 +1,5 @@
 pipeline {
  agent any
- environment {
-    VERSION = "0"
- }
   stages {
     stage("git") {
       steps {
@@ -26,7 +23,6 @@ pipeline {
       steps {
         sh 'echo "Deploy to Nginx webserver"'
         sh 'rsync -avh /var/lib/jenkins/workspace/pipelineBonus/* /var/www/html/'
-        VERSION = ${currentBuild.number}
       }
     }
   }
