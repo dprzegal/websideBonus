@@ -16,14 +16,16 @@ pipeline {
     }
    stage("test") {
       steps {
-       if (currentBuild.currentResult == 'SUCCESS') {
+       script {
+         if (currentBuild.currentResult == 'SUCCESS') {
              echo "Init currentResult: ${currentBuild.currentResult}"
              echo "The build number is ${env.BUILD_NUMBER}"
              echo "You can also use \${BUILD_NUMBER} -> ${BUILD_NUMBER}"
              sh 'echo "I can access $BUILD_NUMBER in shell command as well."'
              echo "${env.BUILD_URL} has result success"
-       } else {
+         } else {
           echo "Don't deploy on Prod. There is a failur on Staging env"
+         }
        }
        }
     } 
