@@ -14,7 +14,18 @@ pipeline {
         echo "Build number is ${currentBuild.number}"
       }
     }
-    stage("test") {
+   stage("test") {
+       when {
+              expression {
+                currentBuild.currentResult == 'SUCCESS' 
+              }
+            steps {
+                echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL} SUCCESS"
+            }
+      }
+    } 
+   
+    stage("approval") {
       steps { 
         input("Do you want to deploy the website?")
       }
