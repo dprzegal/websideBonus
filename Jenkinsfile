@@ -31,7 +31,7 @@ pipeline {
     } 
     stage("approval") {
       steps { 
-        input("Do you want to deploy the website?")
+        input("Do you want to deploy the website on PROD?")
       }
     }    
    stage("deploy") {
