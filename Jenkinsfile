@@ -15,16 +15,13 @@ pipeline {
       }
     }
    stage("test") {
-       when {
-              expression {
-                currentBuild.currentResult == 'SUCCESS' 
-              }
-            steps {
-                echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL} SUCCESS"
-            }
-      }
+      steps {
+             echo "The build number is ${env.BUILD_NUMBER}"
+             echo "You can also use \${BUILD_NUMBER} -> ${BUILD_NUMBER}"
+             sh 'echo "I can access $BUILD_NUMBER in shell command as well."'
+             echo "${env.BUILD_URL} has result success"
+       }
     } 
-   
     stage("approval") {
       steps { 
         input("Do you want to deploy the website?")
